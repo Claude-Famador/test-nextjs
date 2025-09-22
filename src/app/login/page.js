@@ -23,10 +23,10 @@ export default function LoginPage() {
             <h2 className="text-2xl font-bold mb-6 text-black text-center">Login</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block mb-1 text-sm font-medium">Email</label>
+                <label className="block mb-1 text-sm text-black font-medium">Email</label>
                 <input
                   type="email"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 placeholder-slate-400 placeholder-opacity-50 text-black"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
@@ -38,7 +38,7 @@ export default function LoginPage() {
                 <label className="block mb-1 text-sm text-black font-medium">Password</label>
                 <input
                   type="password"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 placeholder-slate-400 placeholder-opacity-50 text-black"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
