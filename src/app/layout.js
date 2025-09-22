@@ -20,13 +20,14 @@ export const metadata = {
 function Header() {
   return (
     <header>
-      <main>
+      <div>
         <nav>
           <div>
-            <link href="/login">Login</link>
+            <Link href="/">Home</Link>
+            <Link href="/login">Login</Link>
           </div>
         </nav>
-      </main>
+      </div>
     </header>
   )
 }
