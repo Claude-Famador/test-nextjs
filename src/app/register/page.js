@@ -2,69 +2,59 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
+    setErrorMsg("");
+    setSuccessMsg("");
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
-    setLoading(false);
-
     if (error) {
-      setError(error.message);
+      setErrorMsg(error.message); // e.g. "User already registered"
     } else {
-      alert("Registration successful! Please check your email to confirm.");
-      router.push("/login");
+      setSuccessMsg("Registration successful! You can now log in.");
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm bg-white shadow-md rounded-lg p-6">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
+        {successMsg && <p className="text-green-500 mb-4">{successMsg}</p>}
+
         <form onSubmit={handleRegister} className="space-y-4">
-          <div>
-            <label className="block mb-1 text-sm font-medium">Email</label>
-            <input
-              type="email"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 text-gray-900 placeholder-gray-400"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1 text-sm font-medium">Password</label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 text-gray-900 placeholder-gray-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+            required
+          />
           <button
             type="submit"
-            className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600"
-            disabled={loading}
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
           >
-            {loading ? "Registering..." : "Register"}
+            Register
           </button>
         </form>
       </div>
