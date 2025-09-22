@@ -1,20 +1,30 @@
 "use client";
 
+import { supabase } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      setLoading(true);
+      setError("");
   
-      // Dummy login check
-      if (email === "test@example.com" && password === "password") {
-        alert("Login successful!");
+      const { data, error } = supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
       } else {
-        setError("Invalid email or password");
+        console.log("Logged In", data.user);
+        router.push("/");
       }
     };
     return (
