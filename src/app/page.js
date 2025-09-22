@@ -4,7 +4,7 @@ import LoginPage from "./login-page/page";
 export default function Home() {
   return (
     <div>
-      <LoginPage />
+      Test
     </div>
   );
 }
