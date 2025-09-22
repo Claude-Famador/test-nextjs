@@ -26,6 +26,9 @@ function Header() {
             <Link href="/" className="hover:text-slate-300">Home</Link>
           </div>
           <div>
+            <Link href="/register" className="hover:text-slate-300">Sign Up</Link>
+          </div>
+          <div>
             <Link href="/login" className="hover:text-slate-300">Login</Link>
           </div>
         </nav>
